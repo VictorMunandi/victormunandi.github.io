@@ -39,7 +39,7 @@
 				        <div class="social-links mt-3 text-center">
 				          	<a href="https://www.linkedin.com/in/victor-munandi-11857a203/" target="_blank"><i class="bx bxl-linkedin"></i></a>
 		     				<a href="https://www.quora.com/profile/Victor-Munandi" target="_blank"><i class="bx bxl-quora"></i></a>
-		     				<a href="https://telegram.me/Victor_Munandi" target="_blank"><i class="bx bxl-telegram"></i></a>
+		     				<a href="https://telegram.me/victor_munandi" target="_blank"><i class="bx bxl-telegram"></i></a>
 		     				<a href="mailto: victormunandi4@gmail.com" target="_blank"><i class="fas fa-envelope"></i></a>
 		     				<a href="https://www.tiktok.com/@victor_munandi" target="_blank"><i class="fab fa-tiktok"></i></a>
 				        </div>
@@ -59,7 +59,7 @@
 			<section id="home" class="d-flex flex-column justify-content-center align-items-center">
 				<div class="home-container">
 					<h2 class="text-light">Victor Munandi Mulinge</h2>
-		      		<p>I'm a <span class="typed" data-typed-items="Website designer, Website developer, Music LRC file creator, Music SRT file creator"></span></p>
+		      		<p style="font-size:20px;">I'm a <span class="typed" data-typed-items="Website designer, Website developer, Music LRC file creator, Music SRT file creator"></span></p>
 				</div>
 			</section>
 			<!-- ======= Home Section end======= -->
@@ -80,14 +80,36 @@
 								<div class="row">
 									<div class="col-lg-6">
 										<ul>
-											<li><i class="icofont-rounded-right"></i> <strong>Birthday:</strong>27<sup>th</sup> July 2000</li>
-											<li><i class="icofont-rounded-right"></i> <strong>Phone:</strong> +254 113 147674</li>
+											<li><i class="icofont-rounded-right"></i> <strong>Birthday: </strong>27<sup>th</sup> July 2000</li>
+											<!--<li><i class="icofont-rounded-right"></i> <strong>Age:</strong> 22</li>-->
+											<li><i class="icofont-rounded-right"></i> <strong>Age:</strong>
+											    <?php
+    									            //$dateOfToday = (date('d'));
+                                                    //$dateOfBirth = '27';
+                                        
+                                                    $monthOfToday = (date('m'));
+                                                    $monthOfBirth = '07';
+                                        
+                                                    $birthDate = '27-07-2000';
+                                                    $todayDate = (date('d-m-Y'));
+                                                    
+                                                    if ($monthOfToday < $monthOfBirth)
+                                                    {
+                                                        echo round($years = (strtotime($todayDate) - strtotime($birthDate)) / (60 * 60 * 24 * 365))-1;
+                                                    }
+                                                    elseif ($monthOfToday >= $monthOfBirth)
+                                                    {
+                                                        echo round($years = (strtotime($todayDate) - strtotime($birthDate)) / (60 * 60 * 24 * 365));
+                                                    }
+											    ?>
+											</li>
 											<li><i class="icofont-rounded-right"></i> <strong>Hometown:</strong> Kivaa, Kenya</li>
 										</ul>
 									</div>
 									<div class="col-lg-6">
 										<ul>
-											<li><i class="icofont-rounded-right"></i> <strong>Age:</strong> 22</li>
+											<li><i class="icofont-rounded-right"></i> <strong>Phone:</strong> +254 113 147674</li>
+											<li><i class="icofont-rounded-right"></i> <strong>Phone:</strong> +254 779 584525</li>
 											<li><i class="icofont-rounded-right"></i> <strong>Email:</strong> victormunandi4@gmail.com</li>
 										</ul>
 									</div>
@@ -99,17 +121,32 @@
 				<!-- ======= About Section end======= -->
 				<!-- ======= Skills Section start======= -->
 				<section id="skills" class="section-bg">
-					<div class="container">
+				    <!--<script type="text/javascript">-->
+        <!--                setInterval("my_function();",1000); -->
+        <!--                function my_function(){-->
+        <!--                  $('#skillDiv').load(location.href + ' #skillDiv');-->
+        <!--                }-->
+        <!--            </script>-->
+					<div id="skillDiv" class="container">
+					    <?php
+					        include "MatiyatHardwareKivaa/backend_files/databaseconnection.php";
+                            $selectSkillsDataSQL = 'SELECT `htmlRange`, `cssRange`, `javascriptRange`, `phpRange`, `sqlRange`, `excelRange`, `music_lrc_Range`, `music_srt_Range` FROM `victor_munandi_portfolio`';
+                            $selectSkillsDataSTMT = $Connection->prepare($selectSkillsDataSQL);
+                            $selectSkillsDataSTMT->execute();
+                            $selectSkillsDataResult = $selectSkillsDataSTMT->get_result();
+                            while ($selectSkillsDataRow = $selectSkillsDataResult->fetch_assoc()) {
+                        ?>
 						<div class="section-title">
 							<h2>Skills</h2>
-			         
 						</div>
 						<div class="row">
 							<div class="col-lg-6 mb-3">
 								<div>
 									HTML
 									<div class="progress">
-										<div class="progress-bar" role="progressbar" style="width: 50%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">50%</div>
+										<div class="progress-bar" role="progressbar" style="width: <?php echo''.$selectSkillsDataRow["htmlRange"].'%'; ?>;" aria-valuenow="<?php echo $selectSkillsDataRow["htmlRange"]; ?>" aria-valuemin="0" aria-valuemax="100">
+										    <?php echo''.$selectSkillsDataRow["htmlRange"].'%'; ?>
+										</div>
 									</div>
 								</div>
 							</div>
@@ -117,7 +154,9 @@
 								<div>
 									CSS
 									<div class="progress">
-										<div class="progress-bar" role="progressbar" style="width: 50%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">50%</div>
+										<div class="progress-bar" role="progressbar" style="width: <?php echo''.$selectSkillsDataRow["cssRange"].'%'; ?>;" aria-valuenow="<?php echo $selectSkillsDataRow["cssRange"]; ?>" aria-valuemin="0" aria-valuemax="100">
+										    <?php echo''.$selectSkillsDataRow["cssRange"].'%'; ?>
+										</div>
 									</div>
 								</div>
 							</div>
@@ -127,7 +166,9 @@
 								<div>
 									PHP
 									<div class="progress">
-										<div class="progress-bar" role="progressbar" style="width: 50%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">50%</div>
+										<div class="progress-bar" role="progressbar" style="width: <?php echo''.$selectSkillsDataRow["phpRange"].'%'; ?>;" aria-valuenow="<?php echo $selectSkillsDataRow["phpRange"]; ?>" aria-valuemin="0" aria-valuemax="100">
+										    <?php echo''.$selectSkillsDataRow["phpRange"].'%'; ?>
+										</div>
 									</div>
 								</div>
 							</div>
@@ -135,7 +176,27 @@
 								<div>
 									Javascript
 									<div class="progress">
-										<div class="progress-bar" role="progressbar" style="width: 50%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">50%</div>
+										<div class="progress-bar" role="progressbar" style="width: <?php echo''.$selectSkillsDataRow["javascriptRange"].'%'; ?>;" aria-valuenow="<?php echo $selectSkillsDataRow["javascriptRange"]; ?>" aria-valuemin="0" aria-valuemax="100">
+										    <?php echo''.$selectSkillsDataRow["javascriptRange"].'%'; ?>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-lg-6 mb-3">
+								Excel
+								<div class="progress">
+									<div class="progress-bar" role="progressbar" style="width: <?php echo''.$selectSkillsDataRow["excelRange"].'%'; ?>;" aria-valuenow="<?php echo $selectSkillsDataRow["excelRange"]; ?>" aria-valuemin="0" aria-valuemax="100">
+									    <?php echo''.$selectSkillsDataRow["excelRange"].'%'; ?>
+									</div>
+								</div>
+							</div>
+							<div class="col-lg-6 mb-3">
+								SQL
+								<div class="progress">
+									<div class="progress-bar" role="progressbar" style="width: <?php echo''.$selectSkillsDataRow["sqlRange"].'%'; ?>;" aria-valuenow="<?php echo $selectSkillsDataRow["sqlRange"]; ?>" aria-valuemin="0" aria-valuemax="100">
+									    <?php echo''.$selectSkillsDataRow["sqlRange"].'%'; ?>
 									</div>
 								</div>
 							</div>
@@ -144,16 +205,21 @@
 							<div class="col-lg-6 mb-3">
 								Music LRC file creation
 								<div class="progress">
-									<div class="progress-bar" role="progressbar" style="width: 50%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">50%</div>
+									<div class="progress-bar" role="progressbar" style="width: <?php echo''.$selectSkillsDataRow["music_lrc_Range"].'%'; ?>;" aria-valuenow="<?php echo $selectSkillsDataRow["music_lrc_Range"]; ?>" aria-valuemin="0" aria-valuemax="100">
+									    <?php echo''.$selectSkillsDataRow["music_lrc_Range"].'%'; ?>
+									</div>
 								</div>
 							</div>
 							<div class="col-lg-6 mb-3">
 								Music SRT file creation
 								<div class="progress">
-									<div class="progress-bar" role="progressbar" style="width: 50%;" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">50%</div>
+									<div class="progress-bar" role="progressbar" style="width: <?php echo''.$selectSkillsDataRow["music_srt_Range"].'%'; ?>;" aria-valuenow="<?php echo $selectSkillsDataRow["music_srt_Range"]; ?>" aria-valuemin="0" aria-valuemax="100">
+									    <?php echo''.$selectSkillsDataRow["music_srt_Range"].'%'; ?>
+									</div>
 								</div>
 							</div>
 						</div>
+						<?php } ?>
 					</div>
 				</section>
 				<!-- ======= Skills Section end======= -->
@@ -176,7 +242,7 @@
 							<div class="social-links  text-center">
 								<a href="https://www.linkedin.com/in/victor-munandi-11857a203/" target="_blank"><i class="bx bxl-linkedin"></i></a>
 								<a href="https://www.quora.com/profile/Victor-Munandi" target="_blank"><i class="bx bxl-quora"></i></a>
-	             				<a href="https://telegram.me/Victor_Munandi" target="_blank"><i class="bx bxl-telegram"></i></a>
+	             				<a href="https://telegram.me/victor_munandi" target="_blank"><i class="bx bxl-telegram"></i></a>
 	             				<a href="mailto: victormunandi4@gmail.com" target="_blank"><i class="fas fa-envelope"></i></a>
 	             				<a href="https://www.tiktok.com/@victor_munandi" target="_blank"><i class="fab fa-tiktok"></i></a>
 							</div>
@@ -196,7 +262,7 @@
 			});
 	 	</script>
 	  	<script src="jeasing.min.js"></script>
-	  	<script src="bootstrap/js/bootstrap.bundle.min.js"></script>
+	  	<!--<script src="bootstrap/js/bootstrap.bundle.min.js"></script>-->
 	  	<script src="fontawesome-free-5/js/all.js"></script>
 	  	<script src="typed.js/typed.min.js"></script>
 	  	<script src="index.js"></script>
